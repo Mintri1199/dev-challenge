@@ -1,0 +1,16 @@
+PODS:
+  - LicensesViewController (0.9.0)
+
+DEPENDENCIES:
+  - LicensesViewController
+
+SPEC REPOS:
+  trunk:
+    - LicensesViewController
+
+SPEC CHECKSUMS:
+  LicensesViewController: 6487b7721aa19d81d90f2ede98b44177f74bcf1f
+
+PODFILE CHECKSUM: 31622c08619931525b9477f8ff44c8a9e35452f7
+
+COCOAPODS: 1.9.1

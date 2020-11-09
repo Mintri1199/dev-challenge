@@ -119,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				449941A22559BF2600A4D5BD /* challengeApp.swift */,
+				449941FE2559C62B00A4D5BD /* Networking */,
 				449941A42559BF2600A4D5BD /* ContentView.swift */,
 				449941A62559BF2800A4D5BD /* Assets.xcassets */,
 				449941AB2559BF2800A4D5BD /* Persistence.swift */,
@@ -154,6 +155,13 @@
 				449941C62559BF2900A4D5BD /* Info.plist */,
 			);
 			path = challengeUITests;
+			sourceTree = "<group>";
+		};
+		449941FE2559C62B00A4D5BD /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
 			sourceTree = "<group>";
 		};
 		7166365D369F6C3216DE5C9A /* Frameworks */ = {

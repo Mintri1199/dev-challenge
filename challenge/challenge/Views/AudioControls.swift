@@ -91,9 +91,6 @@ struct AudioControls: View {
         
         Spacer()
         
-        
-          
-        
       }
     }.padding(.horizontal, 20)
   }

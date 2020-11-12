@@ -25,23 +25,38 @@ struct ContentView: View {
     NavigationView {
       
       List {
-        ForEach(fileItems) { item in
-          Button(action: { item.downloaded ? print("File: \(item.name) is already downloaded") : downloadSoundFile(forFile: item) }, label: {
-            HStack {
-              Text(item.name)
-              
-              Spacer()
-              
-              if item.downloaded {
-                Image(systemName: "checkmark")
-
-              } else {
-                Image(systemName: "square.and.arrow.down")
-              }
+        
+        Section(header: Text("Downloaded")) {
+          if items.isEmpty {
+            Text("No downloaded files")
+          } else {
+            ForEach(items) { file in
+              Text(file.name!)
+                .onTapGesture { print(file) }
             }
-          })
-          
+          }
         }
+        
+        
+        Section(header: Text("Available to download")) {
+          ForEach(fileItems) { item in
+            Button(action: { item.downloaded ? print("File: \(item.name) is already downloaded") : downloadSoundFile(forFile: item) }, label: {
+              HStack {
+                Text(item.name)
+                
+                Spacer()
+                
+                if item.downloaded {
+                  Image(systemName: "checkmark")
+
+                } else {
+                  Image(systemName: "square.and.arrow.down")
+                }
+              }
+            })
+          }
+        }
+        
       }
       .navigationBarItems(trailing: NavigationLink(destination: LocalFileView().environment(\.managedObjectContext, viewContext)) {
         Image(systemName: "folder")
@@ -61,13 +76,28 @@ struct ContentView: View {
     withAnimation {
       let filePathReference = storage.reference(withPath: file.filePath)
       
-      filePathReference.getMetadata { (data, error) in
-        if let error = error {
-          // handle error here
-        } else {
-          print("able to download: \(file.name)")
-          print(data)
-          
+      FileSystemManager.shared.writeSoundFile(forPath: filePathReference.name) { (result) in
+        switch result {
+          case let .success(url):
+            do {
+              try PersistenceController.shared.addEntity(name: file.name,
+                                                     storagePath: filePathReference.fullPath,
+                                                     localPath: url.absoluteString)
+              
+              print("Save file into FileSystem and Core Data")
+            } catch {
+              #if DEBUG
+              print("unable to create file metadata in Core Data")
+              #endif
+              
+              FileSystemManager.shared.deleteFile(atPath: url.absoluteString)
+            }
+            
+          case let .failure(error):
+            #if DEBUG
+            print("Unable to write for file: \(filePathReference.name)")
+            print("Error: \(error)")
+            #endif
         }
       }
     }

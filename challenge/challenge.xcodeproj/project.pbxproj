@@ -23,6 +23,7 @@
 		44C62B0A255C505100150FF6 /* AudioControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B09255C505100150FF6 /* AudioControls.swift */; };
 		44C62B10255C583E00150FF6 /* AudioDurationSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B0F255C583E00150FF6 /* AudioDurationSlider.swift */; };
 		44C62B19255C589900150FF6 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B18255C589900150FF6 /* Double+Extensions.swift */; };
+		44C62B1E255DD30F00150FF6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B1D255DD30E00150FF6 /* AudioPlayer.swift */; };
 		60A52C33F2D4B29F7B895757 /* Pods_challengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47644A97F256432C4754E991 /* Pods_challengeTests.framework */; };
 		7681C0E36F9ABA45C1B3FCA6 /* Pods_challenge_challengeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30CEB889D4B2E82B6A7B54FE /* Pods_challenge_challengeUITests.framework */; };
 /* End PBXBuildFile section */
@@ -69,6 +70,7 @@
 		44C62B09255C505100150FF6 /* AudioControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioControls.swift; sourceTree = "<group>"; };
 		44C62B0F255C583E00150FF6 /* AudioDurationSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDurationSlider.swift; sourceTree = "<group>"; };
 		44C62B18255C589900150FF6 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		44C62B1D255DD30E00150FF6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		47644A97F256432C4754E991 /* Pods_challengeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_challengeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		538A1C13603BD2D149CF98C1 /* Pods-challenge-challengeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-challenge-challengeUITests.debug.xcconfig"; path = "Target Support Files/Pods-challenge-challengeUITests/Pods-challenge-challengeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6F053E592B6DD4597B224F1F /* Pods-challenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-challenge.release.xcconfig"; path = "Target Support Files/Pods-challenge/Pods-challenge.release.xcconfig"; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				449941A42559BF2600A4D5BD /* ContentView.swift */,
 				44994203255AAE5F00A4D5BD /* LocalFileView.swift */,
 				44C62B09255C505100150FF6 /* AudioControls.swift */,
+				44C62B1D255DD30E00150FF6 /* AudioPlayer.swift */,
 				44C62B0E255C580400150FF6 /* Custom Components */,
 			);
 			path = Views;
@@ -482,6 +485,7 @@
 				44C62AFA255B1CB700150FF6 /* FileSystemManager.swift in Sources */,
 				449941AF2559BF2800A4D5BD /* challenge.xcdatamodeld in Sources */,
 				449941A52559BF2600A4D5BD /* ContentView.swift in Sources */,
+				44C62B1E255DD30F00150FF6 /* AudioPlayer.swift in Sources */,
 				449941A32559BF2600A4D5BD /* challengeApp.swift in Sources */,
 				44C62B10255C583E00150FF6 /* AudioDurationSlider.swift in Sources */,
 			);

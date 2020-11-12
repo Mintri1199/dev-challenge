@@ -11,15 +11,12 @@ import SwiftUI
 
 struct AudioControls: View {
   
-  @State var currentDuration = 55
+  @State var currentDuration: Double = 55
+  
   
   var body: some View {
     VStack {
-      Rectangle()
-        .foregroundColor(.secondary)
-        .cornerRadius(20)
-        .frame(height: 320)
-        
+      
       Spacer()
       
       HStack {
@@ -35,34 +32,37 @@ struct AudioControls: View {
         Spacer()
       }
       
-      Spacer()
-      
       VStack {
-        
-//        Slider(value: <#T##Binding<BinaryFloatingPoint>#>)
-        
-        Rectangle()
-          .frame(height: 3)
-          .cornerRadius(3)
-          .foregroundColor(.secondary)
-        
-        HStack {
-          // Start time & current playback time
-          Text("0:00")
-            .font(.caption)
-            .foregroundColor(Color(UIColor.tertiaryLabel))
+        Group {
+          AudioDurationSlider(value: $currentDuration, range: (0, 100), knobWidth: 10) { (modifiers: CustomSliderComponents) in
+            ZStack {
+              Color(.darkGray).cornerRadius(3).frame(height: 6).modifier(modifiers.barRight)
+              Color(.lightGray).cornerRadius(3).frame(height: 6).modifier(modifiers.barLeft)
+              
+              ZStack {
+                Rectangle()
+                  .fill(Color(.lightGray))
+                  .border(Color.black.opacity(0.3), width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
+              }.modifier(modifiers.knob)
+            }
+          }.frame(height: 12)
           
-          Spacer()
-          
-          // End Time
-          Text("4:00")
-            .font(.caption)
-            .foregroundColor(Color(UIColor.tertiaryLabel))
-          
+          HStack {
+            // Start time & current playback time
+            Text("0:00")
+              .font(.caption)
+              .foregroundColor(Color(UIColor.tertiaryLabel))
+            
+            Spacer()
+            
+            // End Time
+            Text("4:00")
+              .font(.caption)
+              .foregroundColor(Color(UIColor.tertiaryLabel))
+            
+          }
         }
       }
-      
-      Spacer()
       
       HStack {
         Spacer()
@@ -80,6 +80,7 @@ struct AudioControls: View {
         Spacer()
         
         Button(action: {
+          //TODO: Add bindable value here
           // Toggle pause and play
         }, label: {
           Image(systemName: false ? "pause.fill" : "play.fill" )
@@ -94,7 +95,7 @@ struct AudioControls: View {
           
         
       }
-    }
+    }.padding(.horizontal, 20)
   }
 }
 

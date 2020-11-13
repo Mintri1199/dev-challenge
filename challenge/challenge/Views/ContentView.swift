@@ -72,7 +72,6 @@ struct ContentView: View {
   }
   
   private func downloadSoundFile(forFile file: File) {
-    print("tap for file: \(file.name)")
     withAnimation {
       let filePathReference = storage.reference(withPath: file.filePath)
       
@@ -80,11 +79,7 @@ struct ContentView: View {
         switch result {
           case let .success(url):
             do {
-              try PersistenceController.shared.addEntity(name: file.name,
-                                                     storagePath: filePathReference.fullPath,
-                                                     localPath: url.absoluteString)
-              
-              print("Save file into FileSystem and Core Data")
+              try PersistenceController.shared.addEntity(name: file.name)
             } catch {
               #if DEBUG
               print("unable to create file metadata in Core Data")
@@ -107,8 +102,10 @@ struct ContentView: View {
     let storageRef = storage.reference()
     storageRef.listAll { (result, error) in
       if let error = error {
-        // TAG: print statement
+        #if DEBUG
         print(error)
+        #endif
+        
       }
       for item in result.items {
         fileItems.append(File(name: item.name, filePath: item.fullPath))

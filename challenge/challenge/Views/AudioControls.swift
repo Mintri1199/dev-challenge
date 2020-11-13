@@ -7,12 +7,14 @@
 
 import SwiftUI
 
-// Adapated from Jordan Singer: https://gist.github.com/jordansinger/a7c6b076a8a1a1b80fbec63c86c97155
+// Adapted from Jordan Singer: https://gist.github.com/jordansinger/a7c6b076a8a1a1b80fbec63c86c97155
 
 struct AudioControls: View {
   
-  @State var currentDuration: Double = 55
-  
+  var fileName: String
+  @State var currentDuration: Double = 0
+  @State var isPlaying: Bool = false
+  @ObservedObject var audioPlayer = AudioPlayer()
   
   var body: some View {
     VStack {
@@ -20,21 +22,16 @@ struct AudioControls: View {
       Spacer()
       
       HStack {
-        VStack(alignment: .leading) {
-         Text("Title")
+        Text("Title")
           .font(.title)
           .fontWeight(.semibold)
-          
-          Text("Artist")
-            .font(.headline)
-            .foregroundColor(.blue)
-        }
+        
         Spacer()
       }
       
       VStack {
         Group {
-          AudioDurationSlider(value: $currentDuration, range: (0, 100), knobWidth: 10) { (modifiers: CustomSliderComponents) in
+          AudioDurationSlider(value: $currentDuration, range: (0, audioPlayer.duration), knobWidth: 10) { (modifiers: CustomSliderComponents) in
             ZStack {
               Color(.darkGray).cornerRadius(3).frame(height: 6).modifier(modifiers.barRight)
               Color(.lightGray).cornerRadius(3).frame(height: 6).modifier(modifiers.barLeft)
@@ -48,15 +45,13 @@ struct AudioControls: View {
           }.frame(height: 12)
           
           HStack {
-            // Start time & current playback time
-            Text("0:00")
+            Text(convertSecondsToTimeStr(seconds: currentDuration))
               .font(.caption)
               .foregroundColor(Color(UIColor.tertiaryLabel))
             
             Spacer()
             
-            // End Time
-            Text("4:00")
+            Text(convertSecondsToTimeStr(seconds: audioPlayer.duration))
               .font(.caption)
               .foregroundColor(Color(UIColor.tertiaryLabel))
             
@@ -68,36 +63,63 @@ struct AudioControls: View {
         Spacer()
         
         Button(action: {
-          // Toggle pause and play
+          audioPlayer.filePlayer!.currentTime = 0
+          audioPlayer.filePlayer?.play()
         }, label: {
           Image(systemName: "gobackward")
             .font(.system(size: 54, weight: .bold, design: .default))
-            
             .foregroundColor(.secondary)
-            
+          
         }).buttonStyle(PlainButtonStyle())
         
         Spacer()
         
         Button(action: {
-          //TODO: Add bindable value here
-          // Toggle pause and play
+          if audioPlayer.filePlayer!.isPlaying {
+            audioPlayer.filePlayer?.pause()
+            isPlaying.toggle()
+            //TODO: remove the operation here to stop updating the slider
+            
+          } else {
+            playAction()
+            //TODO: Add operation here to continuously update the slider
+          }
         }, label: {
-          Image(systemName: false ? "pause.fill" : "play.fill" )
+          Image(systemName: isPlaying ? "pause.fill" : "play.fill" )
             .font(.system(size: 56, weight: .bold, design: .default))
             .foregroundColor(.secondary)
-            
+          
         }).buttonStyle(PlainButtonStyle())
         
         Spacer()
         
       }
-    }.padding(.horizontal, 20)
+    }.padding(.horizontal, 20).onAppear {
+      self.audioPlayer.fetchFile(withName: self.fileName)
+      self.currentDuration = self.audioPlayer.filePlayer!.currentTime
+    }
+  }
+  
+  private func playAction() {
+    audioPlayer.filePlayer?.play()
+    isPlaying.toggle()
+  }
+  
+  
+  
+  private func convertSecondsToTimeStr(seconds: TimeInterval) -> String {
+    let closestAmount = Int(seconds)
+    let (hours, minutes, seconds) = (closestAmount / 3600, (closestAmount % 3600) / 60, (closestAmount % 3600) % 60)
+    
+    var str = hours > 0 ? "\(hours)" : ""
+    str = minutes > 0 ? str + " \(minutes)" : str
+    str = seconds > 0 ? str + " \(seconds)" : str
+    return str.isEmpty ? "0:00" : str
   }
 }
 
 struct AudioControls_Previews: PreviewProvider {
   static var previews: some View {
-    AudioControls()
+    AudioControls(fileName: "Dreams.mp3")
   }
 }

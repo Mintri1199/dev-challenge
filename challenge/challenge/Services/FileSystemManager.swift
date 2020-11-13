@@ -52,7 +52,7 @@ class FileSystemManager {
     try manager.removeItem(atPath: localURL.path)
   }
   
-  private func createLocalURL(name: String) -> URL {
+  func createLocalURL(name: String) -> URL {
     var localURL = try! manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     localURL.appendPathComponent("Sounds")
     print(localURL.path)

@@ -31,10 +31,9 @@ struct ContentView: View {
             Text("No downloaded files")
           } else {
             ForEach(items) { file in
-              Text(file.name!)
-                .onTapGesture {
-                  print(file)
-                }
+              NavigationLink(destination: AudioControls(fileName: file.name!)) {
+                Text(file.name!)
+              }
             }
           }
         }

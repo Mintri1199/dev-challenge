@@ -8,14 +8,21 @@
 import Foundation
 import AVFoundation
 class AudioPlayer: ObservableObject {
-  var fileMusic: AVAudioPlayer?
-  private var fileName: String
+  @Published var filePlayer: AVAudioPlayer?
+  @Published var currentTime: TimeInterval = 0
+  var duration: TimeInterval = 0
   
-  init(fileName name: String) {
-    fileName = name
-  }
-  
-  func play() {
-    
+  func fetchFile(withName name: String) {
+    let fileURL = FileSystemManager.shared.createLocalURL(name: name)
+    do {
+      filePlayer = try AVAudioPlayer(contentsOf: fileURL)
+      currentTime = filePlayer!.currentTime
+      duration = filePlayer!.duration
+      filePlayer?.prepareToPlay()
+    } catch {
+      #if DEBUG
+      print(error)
+      #endif
+    }
   }
 }

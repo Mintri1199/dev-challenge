@@ -36,21 +36,19 @@ struct LocalFileView: View {
   
   private func deleteFile(offSets: IndexSet) {
     withAnimation {
-      print(offSets)
-//      let obj = files[]
-//      let manager = FileSystemManager.shared
-//      do {
-//        try manager.deleteFile(atPath: obj.localPath!)
-//        try PersistenceController.shared.deleteEntity(for: obj)
-//      } catch {
-//        // pop up alert
-//
-//
-//        #if DEBUG
-//        print("Error when trying to delete file")
-//        print(error)
-//        #endif
-//      }
+      let file = files[offSets.first!]
+      let manager = FileSystemManager.shared
+      do {
+        try manager.deleteFile(withName: file.name!)
+        try PersistenceController.shared.deleteEntity(for: file)
+      } catch {
+
+        #if DEBUG
+        print("Error when trying to delete file")
+        print(error)
+        #endif
+        
+      }
     }
   }
 }

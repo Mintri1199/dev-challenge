@@ -47,15 +47,9 @@ class FileSystemManager {
     }
   }
   
-  func deleteFile(atPath path: String) {
-    do {
-      try manager.removeItem(atPath: path)
-    } catch {
-      #if DEBUG
-      print(FileSystemError.unableToDelete.rawValue + path)
-      #endif
-      fatalError()
-    }
+  func deleteFile(withName name: String) throws {
+    let localURL = createLocalURL(name: name)
+    try manager.removeItem(atPath: localURL.path)
   }
   
   private func createLocalURL(name: String) -> URL {

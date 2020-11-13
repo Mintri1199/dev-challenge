@@ -13,7 +13,7 @@ struct ContentView: View {
   // Core Data View Context
   @Environment(\.managedObjectContext) private var viewContext
   
-  @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FileMetadata.name, ascending: true)],
+  @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \FileMetadata.timeStamp, ascending: true)],
                 animation: .default)
   
   private var items: FetchedResults<FileMetadata>
@@ -32,7 +32,9 @@ struct ContentView: View {
           } else {
             ForEach(items) { file in
               Text(file.name!)
-                .onTapGesture { print(file) }
+                .onTapGesture {
+                  print(file)
+                }
             }
           }
         }
@@ -77,7 +79,7 @@ struct ContentView: View {
       
       FileSystemManager.shared.writeSoundFile(forPath: filePathReference.name) { (result) in
         switch result {
-          case let .success(url):
+          case .success(_):
             do {
               try PersistenceController.shared.addEntity(name: file.name)
             } catch {
@@ -85,7 +87,7 @@ struct ContentView: View {
               print("unable to create file metadata in Core Data")
               #endif
               
-              FileSystemManager.shared.deleteFile(atPath: url.absoluteString)
+              try! FileSystemManager.shared.deleteFile(withName: file.name)
             }
             
           case let .failure(error):

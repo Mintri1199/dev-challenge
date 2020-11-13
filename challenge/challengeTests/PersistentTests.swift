@@ -1,5 +1,5 @@
 //
-//  CoreDataTest.swift
+//  PersistentTests.swift
 //  challengeTests
 //
 //  Created by Jackson Ho on 11/10/20.
@@ -9,8 +9,9 @@ import XCTest
 import CoreData
 @testable import challenge
 
-class CoreDataTest: XCTestCase {
+class PersistentTests: XCTestCase {
   // TODO:
+  // Test FileSystemManger
   // Add the core data persistence container
   // Test adding sound file
   // Test for fetching sound file
@@ -21,8 +22,26 @@ class CoreDataTest: XCTestCase {
   }
   
   override func tearDownWithError() throws {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
   }
+  
+  func testDirCreation() {
+    // TODO:
+    // Create a mock to test the logic
+//    let tempDir = NSSearchPathForDirectoriesInDomains(.itemReplacementDirectory, .userDomainMask, true).first ?? ""
+//    let constantDirPath = tempDir + "/Sounds"
+//
+//    let manager = FileSystemManager.shared
+//
+//    XCTAssertTrue(manager.dirPath.isEmpty)
+//
+//    manager.createCustomDirectory()
+//
+//    XCTAssertTrue(manager.dirPath == constantDirPath)
+//
+//    XCTAssertTrue(FileManager.default.fileExists(atPath: constantDirPath))
+  }
+  
   
   func testAddSoundFile() throws {
     // Given a sound file that converted into NSData

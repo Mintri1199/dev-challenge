@@ -22,9 +22,7 @@
 		44C62B0A255C505100150FF6 /* AudioControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B09255C505100150FF6 /* AudioControls.swift */; };
 		44C62B10255C583E00150FF6 /* AudioDurationSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B0F255C583E00150FF6 /* AudioDurationSlider.swift */; };
 		44C62B19255C589900150FF6 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B18255C589900150FF6 /* Double+Extensions.swift */; };
-		44C62B1E255DD30F00150FF6 /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B1D255DD30E00150FF6 /* AudioPlayer.swift */; };
 		44C62B50255EAA9B00150FF6 /* AudioObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B4F255EAA9A00150FF6 /* AudioObject.swift */; };
-		44C62B79255F10E200150FF6 /* OperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C62B78255F10E200150FF6 /* OperationQueue.swift */; };
 		89AE191D12E9D5EE5AC55E6B /* Pods_challenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01E69AA93C4D7B149E38E530 /* Pods_challenge.framework */; };
 		A01CA362A3411CB52D4B8123 /* Pods_challengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F1304579789BDA27E966A76 /* Pods_challengeTests.framework */; };
 		CFA92FE92F87D5D7CE88C6F1 /* Pods_challenge_challengeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C14584B69785EBCFF4E21911 /* Pods_challenge_challengeUITests.framework */; };
@@ -71,9 +69,7 @@
 		44C62B09255C505100150FF6 /* AudioControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioControls.swift; sourceTree = "<group>"; };
 		44C62B0F255C583E00150FF6 /* AudioDurationSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioDurationSlider.swift; sourceTree = "<group>"; };
 		44C62B18255C589900150FF6 /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
-		44C62B1D255DD30E00150FF6 /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		44C62B4F255EAA9A00150FF6 /* AudioObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioObject.swift; sourceTree = "<group>"; };
-		44C62B78255F10E200150FF6 /* OperationQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationQueue.swift; sourceTree = "<group>"; };
 		54F1FA1E62BD7339DB2600F3 /* Pods-challenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-challenge.debug.xcconfig"; path = "Target Support Files/Pods-challenge/Pods-challenge.debug.xcconfig"; sourceTree = "<group>"; };
 		57200A0617504EDDC605FEEA /* Pods-challenge-challengeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-challenge-challengeUITests.release.xcconfig"; path = "Target Support Files/Pods-challenge-challengeUITests/Pods-challenge-challengeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8F1304579789BDA27E966A76 /* Pods_challengeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_challengeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,7 +148,6 @@
 				449941A62559BF2800A4D5BD /* Assets.xcassets */,
 				449941AB2559BF2800A4D5BD /* Persistence.swift */,
 				44C62B4F255EAA9A00150FF6 /* AudioObject.swift */,
-				44C62B78255F10E200150FF6 /* OperationQueue.swift */,
 				449941B02559BF2800A4D5BD /* Info.plist */,
 				44C62B17255C588300150FF6 /* Extensions */,
 				44C62AF8255B1CA000150FF6 /* Services */,
@@ -203,7 +198,6 @@
 				449941A42559BF2600A4D5BD /* ContentView.swift */,
 				44994203255AAE5F00A4D5BD /* LocalFileView.swift */,
 				44C62B09255C505100150FF6 /* AudioControls.swift */,
-				44C62B1D255DD30E00150FF6 /* AudioPlayer.swift */,
 				44C62B0E255C580400150FF6 /* Custom Components */,
 			);
 			path = Views;
@@ -487,13 +481,11 @@
 				449941AC2559BF2800A4D5BD /* Persistence.swift in Sources */,
 				44C62B0A255C505100150FF6 /* AudioControls.swift in Sources */,
 				44994204255AAE5F00A4D5BD /* LocalFileView.swift in Sources */,
-				44C62B79255F10E200150FF6 /* OperationQueue.swift in Sources */,
 				44C62B19255C589900150FF6 /* Double+Extensions.swift in Sources */,
 				44C62B50255EAA9B00150FF6 /* AudioObject.swift in Sources */,
 				44C62AFA255B1CB700150FF6 /* FileSystemManager.swift in Sources */,
 				449941AF2559BF2800A4D5BD /* challenge.xcdatamodeld in Sources */,
 				449941A52559BF2600A4D5BD /* ContentView.swift in Sources */,
-				44C62B1E255DD30F00150FF6 /* AudioPlayer.swift in Sources */,
 				449941A32559BF2600A4D5BD /* challengeApp.swift in Sources */,
 				44C62B10255C583E00150FF6 /* AudioDurationSlider.swift in Sources */,
 			);

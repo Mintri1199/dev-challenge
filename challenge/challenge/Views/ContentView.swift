@@ -31,7 +31,9 @@ struct ContentView: View {
             Text("No downloaded files")
           } else {
             ForEach(items) { file in
-              NavigationLink(destination: AudioControls(fileName: file.name!)) {
+              let playerInstance = AudioPlayer(fileName: file.name!)
+              let destination = AudioControls(fileName: file.name!).environmentObject(playerInstance)
+              NavigationLink(destination: destination) {
                 Text(file.name!)
               }
             }

@@ -55,7 +55,6 @@ class FileSystemManager {
   func createLocalURL(name: String) -> URL {
     var localURL = try! manager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     localURL.appendPathComponent("Sounds")
-    print(localURL.path)
     localURL.appendPathComponent(name)
     return localURL
   }

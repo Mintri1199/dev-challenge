@@ -14,7 +14,8 @@ struct AudioControls: View {
   var fileName: String
   @State var currentDuration: Double = 0
   @State var isPlaying: Bool = false
-  @ObservedObject var audioPlayer = AudioPlayer()
+  @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+  @EnvironmentObject private var audioPlayer: AudioPlayer
   
   var body: some View {
     VStack {
@@ -31,7 +32,7 @@ struct AudioControls: View {
       
       VStack {
         Group {
-          AudioDurationSlider(value: $currentDuration, range: (0, audioPlayer.duration), knobWidth: 10) { (modifiers: CustomSliderComponents) in
+          AudioDurationSlider(value: $currentDuration, range: (0, audioPlayer.filePlayer.duration), knobWidth: 10) { (modifiers: CustomSliderComponents) in
             ZStack {
               Color(.darkGray).cornerRadius(3).frame(height: 6).modifier(modifiers.barRight)
               Color(.lightGray).cornerRadius(3).frame(height: 6).modifier(modifiers.barLeft)
@@ -51,20 +52,22 @@ struct AudioControls: View {
             
             Spacer()
             
-            Text(convertSecondsToTimeStr(seconds: audioPlayer.duration))
+            Text(convertSecondsToTimeStr(seconds: audioPlayer.filePlayer.duration))
               .font(.caption)
               .foregroundColor(Color(UIColor.tertiaryLabel))
             
           }
         }
+      }.onReceive(timer) { _ in
+        self.currentDuration = audioPlayer.filePlayer.currentTime
       }
       
       HStack {
         Spacer()
         
         Button(action: {
-          audioPlayer.filePlayer!.currentTime = 0
-          audioPlayer.filePlayer?.play()
+          audioPlayer.filePlayer.currentTime = 0
+          audioPlayer.filePlayer.pause()
         }, label: {
           Image(systemName: "gobackward")
             .font(.system(size: 54, weight: .bold, design: .default))
@@ -74,17 +77,7 @@ struct AudioControls: View {
         
         Spacer()
         
-        Button(action: {
-          if audioPlayer.filePlayer!.isPlaying {
-            audioPlayer.filePlayer?.pause()
-            isPlaying.toggle()
-            //TODO: remove the operation here to stop updating the slider
-            
-          } else {
-            playAction()
-            //TODO: Add operation here to continuously update the slider
-          }
-        }, label: {
+        Button(action: playPauseAction, label: {
           Image(systemName: isPlaying ? "pause.fill" : "play.fill" )
             .font(.system(size: 56, weight: .bold, design: .default))
             .foregroundColor(.secondary)
@@ -94,18 +87,19 @@ struct AudioControls: View {
         Spacer()
         
       }
-    }.padding(.horizontal, 20).onAppear {
-      self.audioPlayer.fetchFile(withName: self.fileName)
-      self.currentDuration = self.audioPlayer.filePlayer!.currentTime
+    }.padding(.horizontal, 20)
+  }
+  
+  private func playPauseAction() {
+    if audioPlayer.filePlayer.isPlaying {
+      audioPlayer.filePlayer.pause()
+      isPlaying.toggle()
+    } else {
+      self.currentDuration = audioPlayer.filePlayer.currentTime
+      isPlaying.toggle()
+      audioPlayer.filePlayer.play()
     }
   }
-  
-  private func playAction() {
-    audioPlayer.filePlayer?.play()
-    isPlaying.toggle()
-  }
-  
-  
   
   private func convertSecondsToTimeStr(seconds: TimeInterval) -> String {
     let closestAmount = Int(seconds)

@@ -14,7 +14,7 @@ struct AudioControls: View {
   var fileName: String
   @State var currentDuration: Double = 0
   @State var isPlaying: Bool = false
-  @State private var timer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
+  @State private var timer = Timer.publish(every: 0.5, on: .main, in: .common).autoconnect()
   @EnvironmentObject private var audioPlayer: AudioPlayer
   
   var body: some View {

@@ -33,13 +33,13 @@ struct ContentView: View {
             ForEach(items) { file in
               let playerInstance = AudioPlayer(fileName: file.name!)
               let destination = AudioControls(fileName: file.name!).environmentObject(playerInstance)
+              
               NavigationLink(destination: destination) {
                 Text(file.name!)
               }
             }
           }
         }
-        
         
         Section(header: Text("Available to download")) {
           ForEach(fileItems) { item in
@@ -64,7 +64,10 @@ struct ContentView: View {
       .navigationBarItems(trailing: NavigationLink(destination: LocalFileView().environment(\.managedObjectContext, viewContext)) {
         Image(systemName: "folder")
       })
-    }.onAppear(perform: updateFileList)
+    }.onAppear {
+      updateFileList()
+      doubleCheckCoreData()
+    }
   }
   
   struct File: Identifiable {
@@ -113,6 +116,13 @@ struct ContentView: View {
       for item in result.items {
         fileItems.append(File(name: item.name, filePath: item.fullPath))
       }
+    }
+  }
+  
+  private func doubleCheckCoreData() {
+    let doesNotExists = items.compactMap { !FileSystemManager.shared.checkExist(fileName: $0.name!) ? $0 : nil }
+    for entity in doesNotExists {
+      try! PersistenceController.shared.deleteEntity(for: entity)
     }
   }
 }

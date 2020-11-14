@@ -58,4 +58,9 @@ class FileSystemManager {
     localURL.appendPathComponent(name)
     return localURL
   }
+  
+  func checkExist(fileName: String) -> Bool {
+    let localURL = createLocalURL(name: fileName)
+    return manager.fileExists(atPath: localURL.path)
+  }
 }

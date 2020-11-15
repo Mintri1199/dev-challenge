@@ -23,7 +23,7 @@ struct AudioControls: View {
       Spacer()
       
       HStack {
-        Text("Title")
+        Text(fileName)
           .font(.title)
           .fontWeight(.semibold)
         

@@ -49,21 +49,18 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                if item.downloaded {
-                  Image(systemName: "checkmark")
-
-                } else {
-                  Image(systemName: "square.and.arrow.down")
-                }
+                Image(systemName: "square.and.arrow.down")
               }
             })
           }
         }
         
-      }
-      .navigationBarItems(trailing: NavigationLink(destination: LocalFileView().environment(\.managedObjectContext, viewContext)) {
+      }.navigationBarItems(leading: NavigationLink(destination: LocalFileView().environment(\.managedObjectContext, viewContext)) {
         Image(systemName: "folder")
-      })
+      }, trailing:
+        NavigationLink(destination: LobbyView()) {
+          Text("Lobby")
+        })
     }.onAppear {
       updateFileList()
       doubleCheckCoreData()

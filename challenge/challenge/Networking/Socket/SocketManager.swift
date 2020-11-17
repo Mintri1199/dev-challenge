@@ -8,14 +8,33 @@
 import Foundation
 import SocketIO
 
-struct SocketIOManager {
-  let manager = SocketManager(socketURL: URL(string: "http://127.0.0.1:5000/")!, config: [.log(true)])
+class SocketIOManager: ObservableObject {
+  
+  private let manager = SocketManager(socketURL: URL(string: "http://127.0.0.1:5000/")!, config: [.log(true)])
+  
   let socket: SocketIOClient
+    
+  var errorMessage: String = ""
+  @Published var showError: Bool = false
+  @Published var isLeader: Bool = false {
+    didSet {
+      if isLeader {
+        print("is now the leader")
+      } else {
+        print("is not the leader")
+      }
+    }
+  }
   init() {
     socket = manager.defaultSocket
     socket.on(clientEvent: .connect) { (data, ack) in
       print("socket connected")
     }
+    
+    socket.on("changeLeader") { (data, ack) in
+      self.isLeader = true
+    }
+    
   }
   
   func addHandlers() {
@@ -23,33 +42,29 @@ struct SocketIOManager {
       print("socket connected")
     }
     
-    socket.on("createRoom") { (data, ack) in
-      // Check whenever the user is the leader of the room or not
-      
-    }
-    
-    socket.on("joinRoom") { (data, ack) in
-      // Check whenever the user is the leader of the room or not
-    }
-    
     socket.on("play") { (data, ack) in
       // Check if the user is the leader of the room
+      if !self.isLeader {
+        return
+      }
     }
     
     socket.on("pause") { (data, ack) in
       // Check if the user is the leader of the room
+      if !self.isLeader {
+        return
+      }
     }
     
     socket.on("reset") { (data, ack) in
       // Check if the user is the leader of the room
-    }
-    
-    //
-    socket.on("changeLeader") { (data, ack) in
-      // Change the leader of the room
+      if !self.isLeader {
+        return
+      }
     }
     
     socket.onAny { print("Got event: \($0.event), with items: \($0.items!)") }
+    
   }
   
   func checkNameAvailable(name: String) {
